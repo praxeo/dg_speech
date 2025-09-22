@@ -33,28 +33,27 @@ jobs:
       run: |
         python build.py
     
-    - name: Download UPX
+    - name: Build onedir executable
+      shell: pwsh
       run: |
-        Invoke-WebRequest -Uri "https://github.com/upx/upx/releases/download/v4.2.1/upx-4.2.1-win64.zip" -OutFile "upx.zip"
-        Expand-Archive -Path "upx.zip" -DestinationPath "."
-        $env:PATH += ";$PWD\upx-4.2.1-win64"
+        python -m PyInstaller --onedir --console --name deepgram_dictation --clean --paths . --hidden-import websocket --hidden-import pynput.keyboard._win32 --hidden-import pynput.mouse._win32 --exclude-module matplotlib --exclude-module numpy --exclude-module pandas --exclude-module scipy --exclude-module PIL --exclude-module tkinter --exclude-module PyQt5 --exclude-module PyQt6 --exclude-module PySide2 --exclude-module PySide6 deepgram_dictation.py
     
-    - name: Compress executable with UPX
+    - name: Create release packages (onefile and onedir)
+      shell: pwsh
       run: |
-        ./upx-4.2.1-win64/upx.exe --best --lzma dist/deepgram_dictation.exe || true
-    
-    - name: Create release package
-      run: |
-        # Create release directory
-        New-Item -ItemType Directory -Force -Path release
-        
-        # Copy files to release directory
-        Copy-Item dist/deepgram_dictation.exe release/
-        Copy-Item dist/config.json release/
-        Copy-Item dist/README.txt release/
-        
-        # Create zip archive
-        Compress-Archive -Path release/* -DestinationPath deepgram_dictation_windows.zip
+        # Onefile package
+        New-Item -ItemType Directory -Force -Path release_onefile | Out-Null
+        Copy-Item dist/deepgram_dictation.exe release_onefile/
+        Copy-Item dist/config.json release_onefile/
+        Copy-Item dist/README.txt release_onefile/
+        Compress-Archive -Path release_onefile/* -DestinationPath deepgram_dictation_windows.zip -Force
+
+        # Onedir package (less likely to trigger antivirus)
+        New-Item -ItemType Directory -Force -Path release_onedir | Out-Null
+        Copy-Item -Recurse -Force dist/deepgram_dictation release_onedir/deepgram_dictation
+        Copy-Item dist/config.json release_onedir/
+        Copy-Item dist/README.txt release_onedir/
+        Compress-Archive -Path release_onedir/* -DestinationPath deepgram_dictation_windows_onedir.zip -Force
     
     - name: Get version from tag
       id: get_version
@@ -75,14 +74,24 @@ jobs:
           # Deepgram Medical Dictation Tool ${{ steps.get_version.outputs.VERSION }}
           
           ## Download and Run
+          Preferred (if antivirus flags the EXE):
+          1. Download `deepgram_dictation_windows_onedir.zip`
+          2. Extract the zip
+          3. Run `deepgram_dictation/deepgram_dictation.exe`
+          
+          Alternate (single EXE):
           1. Download `deepgram_dictation_windows.zip`
           2. Extract to any folder
           3. Run `deepgram_dictation.exe`
-          4. Enter your Deepgram API key
-          5. Hold CTRL to dictate!
           
           ## What's Included
-          - `deepgram_dictation.exe` - Standalone executable (no Python required)
+          OneFile package:
+          - `deepgram_dictation.exe` - Single executable
+          - `config.json` - Configuration template
+          - `README.txt` - Quick start guide
+          
+          OneDir package (less likely to trigger antivirus):
+          - `deepgram_dictation/` - Folder containing `deepgram_dictation.exe` and required libraries
           - `config.json` - Configuration template
           - `README.txt` - Quick start guide
           
@@ -92,11 +101,11 @@ jobs:
           - Internet connection
           - Deepgram API key
           
-          No installation or Python required!
+          Note: Some antivirus tools heuristically flag unsigned single-file executables. If you encounter a warning, use the OneDir package above. Code signing is planned for a future release.
         draft: false
         prerelease: false
     
-    - name: Upload Release Asset
+    - name: Upload Release Asset (onefile)
       if: startsWith(github.ref, 'refs/tags/')
       uses: actions/upload-release-asset@v1
       env:
@@ -105,6 +114,17 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./deepgram_dictation_windows.zip
         asset_name: deepgram_dictation_windows.zip
+        asset_content_type: application/zip
+
+    - name: Upload Release Asset (onedir)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./deepgram_dictation_windows_onedir.zip
+        asset_name: deepgram_dictation_windows_onedir.zip
         asset_content_type: application/zip
     
     - name: Upload executable artifact
