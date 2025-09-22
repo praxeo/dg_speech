@@ -22,9 +22,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        # Install PyAudio for Windows
-        pip install pipwin
-        pipwin install pyaudio --yes
+        # Install PyAudio pre-built wheel for Windows
+        pip install https://download.lfd.uci.edu/pythonlibs/archived/cp311/PyAudio-0.2.11-cp311-cp311-win_amd64.whl
         # Install other dependencies
         pip install pyperclip==1.8.2
         pip install pynput==1.7.6

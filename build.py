@@ -100,13 +100,13 @@ def build_executable():
         if result.stderr:
             print("Warnings:", result.stderr)
         
-        print("\n✓ Build successful!")
+        print("\nBuild successful!")
         
         # Get executable path
         exe_path = Path("dist") / "deepgram_dictation.exe"
         if exe_path.exists():
             size_mb = exe_path.stat().st_size / (1024 * 1024)
-            print(f"✓ Executable created: {exe_path}")
+            print(f"Executable created: {exe_path}")
             print(f"  Size: {size_mb:.1f} MB")
             
             # Copy config template to dist folder
@@ -117,7 +117,7 @@ def build_executable():
                 compress_with_upx(exe_path)
         
     except subprocess.CalledProcessError as e:
-        print(f"\n✗ Build failed: {e}")
+        print(f"\nBuild failed: {e}")
         print(e.stdout)
         print(e.stderr)
         sys.exit(1)
@@ -134,7 +134,7 @@ def copy_config_template():
     
     if os.path.exists(config_src):
         shutil.copy2(config_src, config_dst)
-        print(f"✓ Config template copied to dist folder")
+        print("Config template copied to dist folder")
 
 
 def create_config_template():
@@ -150,7 +150,7 @@ def create_config_template():
     with open("config.json", "w", encoding="utf-8") as f:
         json.dump(config, f, indent=2)
     
-    print("✓ Configuration template created")
+    print("Configuration template created")
 
 
 def check_upx_available():
@@ -184,7 +184,7 @@ def compress_with_upx(exe_path):
         
         # Check new size
         new_size_mb = exe_path.stat().st_size / (1024 * 1024)
-        print(f"✓ Compressed to: {new_size_mb:.1f} MB")
+        print(f"Compressed to: {new_size_mb:.1f} MB")
         
     except subprocess.CalledProcessError as e:
         print(f"Warning: UPX compression failed: {e}")
@@ -248,7 +248,7 @@ For issues or questions, check the logs folder or enable debug logging in config
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(readme_content.strip())
     
-    print("✓ README created")
+    print("README created")
 
 
 def main():
