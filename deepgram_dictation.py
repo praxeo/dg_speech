@@ -154,7 +154,7 @@ class DeepgramTranscriber:
         """
         try:
             # Build WebSocket URL with parameters
-            model = self.config.get('model', 'nova-2-medical')
+            model = self.config.get('model', 'nova-3-medical')
             language = self.config.get('language', 'en-US')
             punctuate = str(self.config.get('auto_punctuation', True)).lower()
             

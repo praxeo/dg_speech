@@ -92,8 +92,8 @@ Edit `config.json` in the same directory as the executable:
   "push_to_talk_key": "ctrl",       // Options: ctrl, alt, shift, f1-f12
   "preview_mode": true,              // Show text before copying
   "auto_punctuation": true,          // Automatic punctuation
-  "model": "nova-2-medical",         // Deepgram model
-  "language": "en-US",               // Language code
+  "model": "nova-3-medical",         // Deepgram model
+  "language": "en-US",               // English locales: en, en-US, en-AU, en-CA, en-GB, en-IE, en-IN, en-NZ
   "save_transcriptions": false,      // Save to text files
   "transcription_folder": "./transcriptions",
   "sound_feedback": true,            // Beep on start/stop

@@ -1,5 +1,8 @@
 name: Build and Release
 
+permissions:
+  contents: write
+
 on:
   push:
     tags:
@@ -12,26 +15,19 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.11'
     
     - name: Install dependencies
+      shell: pwsh
       run: |
-        python -m pip install --upgrade pip
-        # Install build tools for PyAudio
-        pip install pipwin
-        pipwin refresh
-        pipwin install pyaudio
-        # Install other dependencies
-        pip install pyperclip==1.8.2
-        pip install pynput==1.7.6
-        pip install websocket-client==1.6.4
-        pip install cryptography==41.0.7
-        pip install pyinstaller==6.3.0
+        python -m pip install --upgrade pip wheel setuptools
+        pip install -r requirements.txt
+        python -c "import importlib, sys; import traceback; try: importlib.import_module('pyaudio'); print('PyAudio import OK') except Exception as e: print('ERROR: PyAudio not installed:', e); sys.exit(1)"
     
     - name: Build executable
       run: |

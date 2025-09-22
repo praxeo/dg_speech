@@ -22,7 +22,7 @@ class ConfigManager:
         "push_to_talk_key": "ctrl",
         "preview_mode": True,
         "auto_punctuation": True,
-        "model": "nova-2-medical",
+        "model": "nova-3-medical",
         "language": "en-US",
         "save_transcriptions": False,
         "transcription_folder": "./transcriptions",

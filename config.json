@@ -3,7 +3,7 @@
   "push_to_talk_key": "ctrl",
   "preview_mode": true,
   "auto_punctuation": true,
-  "model": "nova-2-medical",
+  "model": "nova-3-medical",
   "language": "en-US",
   "save_transcriptions": false,
   "transcription_folder": "./transcriptions",
