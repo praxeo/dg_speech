@@ -73,22 +73,16 @@ def build_executable():
         "--exclude-module", "PySide2",
         "--exclude-module", "PySide6",
         
-        # Optimization level
-        "-O", "2",
-        
         # Main script
         "deepgram_dictation.py"
     ]
     
-    # Add Windows-specific options
-    if sys.platform == "win32":
-        command.extend([
-            # Windows UAC settings (no admin required)
-            "--uac-admin", "False",
-            
-            # Version information (optional)
-            # "--version-file", "version_info.txt",
-        ])
+    # Add Windows-specific options (none needed for basic build)
+    # if sys.platform == "win32":
+    #     command.extend([
+    #         # Version information (optional)
+    #         # "--version-file", "version_info.txt",
+    #     ])
     
     print("Running PyInstaller...")
     print(" ".join(command))
