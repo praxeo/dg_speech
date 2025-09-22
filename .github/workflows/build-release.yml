@@ -22,7 +22,15 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        # Install PyAudio for Windows
+        pip install pipwin
+        pipwin install pyaudio --yes
+        # Install other dependencies
+        pip install pyperclip==1.8.2
+        pip install pynput==1.7.6
+        pip install websocket-client==1.6.4
+        pip install cryptography==41.0.7
+        pip install pyinstaller==6.3.0
     
     - name: Build executable
       run: |

@@ -1,0 +1,10 @@
+# Simplified dependencies for easier building
+pyperclip==1.8.2
+pynput==1.7.6
+websocket-client==1.6.4
+cryptography==41.0.7
+pyinstaller==6.3.0
+
+# Note: PyAudio needs to be installed separately on Windows:
+# pip install pipwin
+# pipwin install pyaudio
