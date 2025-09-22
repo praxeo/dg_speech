@@ -1,0 +1,12 @@
+# Core dependencies for Deepgram Medical Dictation Tool
+pyaudio==0.2.13
+pyperclip==1.8.2
+pynput==1.7.6
+websocket-client==1.6.4
+cryptography==41.0.7
+
+# Build tool
+pyinstaller==6.3.0
+
+# Optional compression tool (install separately if needed)
+# pyinstaller-upx-dir==0.2.0

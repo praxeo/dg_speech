@@ -1,0 +1,22 @@
+{
+  "api_key": "",
+  "push_to_talk_key": "ctrl",
+  "preview_mode": true,
+  "auto_punctuation": true,
+  "model": "nova-2-medical",
+  "language": "en-US",
+  "save_transcriptions": false,
+  "transcription_folder": "./transcriptions",
+  "sound_feedback": true,
+  "min_recording_duration": 0.5,
+  "max_recording_duration": 300,
+  "logging": {
+    "enabled": false,
+    "level": "INFO",
+    "file": "./logs/dictation.log",
+    "max_size_mb": 10,
+    "keep_days": 7,
+    "console_output": false,
+    "privacy_mode": true
+  }
+}
