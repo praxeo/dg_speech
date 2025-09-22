@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# PyInstaller
+*.spec
+*.manifest
+
+# Logs
+logs/
+*.log
+
+# Transcriptions
+transcriptions/
+
+# Config with API keys (keep template only)
+config_local.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+~*
+
+# UPX
+*.upx
