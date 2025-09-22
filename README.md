@@ -13,13 +13,35 @@ A portable, push-to-talk medical dictation tool that uses Deepgram's Nova-3 Medi
 - **Configurable**: JSON configuration for customization
 - **IT-Friendly**: Designed to work within enterprise IT policies
 
-## Quick Start
+## Quick Start (No Python Required!)
 
-### 1. Get a Deepgram API Key
+### Option 1: Download Pre-Built Executable ⭐ RECOMMENDED
+
+1. **Download the latest release:**
+   - Go to [Releases](https://github.com/praxeo/dg_speech/releases)
+   - Download `deepgram_dictation_windows.zip`
+   - Extract to any folder
+
+2. **Run the application:**
+   - Double-click `deepgram_dictation.exe`
+   - Enter your Deepgram API key
+   - Start dictating with CTRL!
+
+**No Python, no installation, no dependencies required!**
+
+### Option 2: Build from Source (Requires Python)
+
+If you want to modify the code or build it yourself:
+
+#### 1. Get a Deepgram API Key
 - Sign up at [https://deepgram.com](https://deepgram.com)
 - Create an API key with access to Nova-3 Medical model
 
-### 2. Build the Executable (Development)
+#### 2. Install Python (if not installed)
+- Download from [python.org](https://www.python.org/downloads/)
+- During installation, check "Add Python to PATH"
+
+#### 3. Build the Executable
 
 ```bash
 # Install dependencies
@@ -31,7 +53,7 @@ python build.py
 
 The executable will be created in the `dist/` folder.
 
-### 3. Run the Application
+## How to Use
 
 1. **First Run**:
    - Double-click `deepgram_dictation.exe`
@@ -129,7 +151,22 @@ If Windows Defender blocks the executable:
 - Restart the application
 - Try running as Administrator (if microphone is restricted)
 
+## Downloads
+
+### Latest Release
+Download the pre-built executable from the [Releases page](https://github.com/praxeo/dg_speech/releases).
+
+**What's included:**
+- `deepgram_dictation.exe` - The standalone executable
+- `config.json` - Configuration template
+- `README.txt` - Quick start guide
+
+**No Python required!** Just download, extract, and run.
+
 ## Building from Source
+
+<details>
+<summary>Click to expand build instructions</summary>
 
 ### Prerequisites
 - Python 3.8 or higher
@@ -138,15 +175,22 @@ If Windows Defender blocks the executable:
 
 ### Build Steps
 
-1. Clone or download the source code
+1. Clone or download the source code:
+   ```bash
+   git clone https://github.com/praxeo/dg_speech.git
+   cd dg_speech
+   ```
+
 2. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
+
 3. Run the build script:
    ```bash
    python build.py
    ```
+
 4. Find the executable in `dist/deepgram_dictation.exe`
 
 ### Optional: UPX Compression
@@ -154,6 +198,8 @@ To reduce file size by ~50%:
 1. Download UPX from [https://upx.github.io/](https://upx.github.io/)
 2. Add UPX to your PATH
 3. The build script will automatically compress the executable
+
+</details>
 
 ## File Structure
 
