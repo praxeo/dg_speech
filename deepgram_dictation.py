@@ -15,13 +15,26 @@ from datetime import datetime
 from getpass import getpass
 from typing import Optional, List
 import queue
+import argparse
 
 # Audio and system libraries
-import pyaudio
-import pyperclip
-from pynput import keyboard
-import websocket
 import ssl
+try:
+    import pyaudio
+except Exception:
+    pyaudio = None
+try:
+    import pyperclip
+except Exception:
+    pyperclip = None
+try:
+    from pynput import keyboard
+except Exception:
+    keyboard = None
+try:
+    import websocket
+except Exception:
+    websocket = None
 
 # Custom modules
 from config_manager import ConfigManager
@@ -543,6 +556,14 @@ class DictationApp:
 
 def main():
     """Main entry point"""
+    parser = argparse.ArgumentParser(description="Deepgram Medical Dictation Tool")
+    parser.add_argument("--version", action="store_true", help="Show version and exit")
+    args = parser.parse_args()
+
+    if args.version:
+        print("Deepgram Medical Dictation Tool")
+        return
+
     app = DictationApp()
     app.run()
 

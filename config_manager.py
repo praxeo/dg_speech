@@ -11,7 +11,7 @@ from pathlib import Path
 import base64
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
 
 class ConfigManager:
@@ -148,7 +148,7 @@ class ConfigManager:
         if self._cipher_suite is None:
             # Use machine-specific salt for key derivation
             salt = os.environ.get('COMPUTERNAME', 'default').encode()[:16].ljust(16, b'0')
-            kdf = PBKDF2(
+            kdf = PBKDF2HMAC(
                 algorithm=hashes.SHA256(),
                 length=32,
                 salt=salt,
